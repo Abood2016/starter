@@ -44,7 +44,18 @@ Route::get('/', function () {
     return 'home';
 });
 
-Route::get('redirect/{service}','SocialController@redirect');
+Route::get('redirect/{service}', 'SocialController@redirect');
 
 Route::get('callback/{service}', 'SocialController@callback');
 
+Route::get('getoffer', 'CrudController@getOffers');
+
+
+Route::group(['prefix' => LaravelLocalization::setlocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
+    Route::group(['prefix' => 'offers'], function () {
+
+        Route::get('create', 'CrudController@create');
+
+        Route::post('store', 'CrudController@store')->name('offer.store');
+    });
+});
