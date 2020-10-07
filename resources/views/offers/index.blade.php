@@ -94,64 +94,30 @@
         </div>
     </nav>
 
-    <div class="flex-center position-ref full-height">
-        <div class="content">
-            <div class="title m-b-md">
-                {{__('messages.offer add title')}}
-            </div>
 
-            @if(Session::has('success'))
-            <div class="alert alert-success">
-                <div>
-                    {{Session::get('success')}}
-                </div>
-            </div>
-            @endif
-            <br>
-            <form method="POST" action="{{ route('offer.store') }}">
-                @csrf
-                <div class="form-group">
-                    <label for="name_en">{{ __('messages.offer Name input en') }}</label>
-                    <input type="text" name="name_en" class="form-control" aria-describedby="emailHelp">
-                    @error('name_en')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="name_ar">{{ __('messages.offer Name input ar') }}</label>
-                    <input type="text" name="name_ar" class="form-control" aria-describedby="emailHelp">
-                    @error('name_ar')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Offer Price</label>
-                    <input type="text" name="price" class="form-control">
-                    @error('price')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="details_en">{{ __('messages.offer details input en') }}</label>
-                    <input type="text" name="details_en" class="form-control">
-                    @error('details_en')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">{{__('messages.offerName')}}</th>
+                 <th scope="col">{{ __('messages.offer price') }}</th>
+                <th scope="col">Offer Details</th>
+            </tr>
+        </thead>
+        <tbody>
 
-                <div class="form-group">
-                    <label for="details_ar">{{ __('messages.offer details input ar') }}</label>
-                    <input type="text" name="details_ar" class="form-control">
-                    @error('details_ar')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
+        @foreach ($offers as $offer)
+            <tr>
+                <th scope="row">{{ $offer->id }}</th>
+                <td>{{ $offer->name }}</td>
+                <td>{{ $offer->price }}</td>
+                <td>{{ $offer->details }}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 
-                <button type="submit" class="btn btn-primary">Save</button>
-            </form>
 
-        </div>
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

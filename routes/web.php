@@ -3,6 +3,8 @@
 use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,5 +59,7 @@ Route::group(['prefix' => LaravelLocalization::setlocale(), 'middleware' => ['lo
         Route::get('create', 'CrudController@create');
 
         Route::post('store', 'CrudController@store')->name('offer.store');
+
+        Route::get('all','CrudController@getAllOffers');
     });
 });
