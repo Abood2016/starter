@@ -9,10 +9,13 @@ return [
     'offer price' => 'Offer Price ',
     'offer name unique' => 'Offer Name Must be Unique',
     'offer add title' => 'Add New Offer',
+    'offer edit title' => 'Edit Offer',
     'offer Name input en' => 'Offer Name English',
     'offer Name input ar' => 'Offer Name Arabic',
     'offer details input en' => 'Offer Details English',
     'offer details input ar' => 'Offer Details Arabic',
+    'editBtn' => 'Edit',
+    'Operations' => 'Operations',
 
     
 

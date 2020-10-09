@@ -61,5 +61,9 @@ Route::group(['prefix' => LaravelLocalization::setlocale(), 'middleware' => ['lo
         Route::post('store', 'CrudController@store')->name('offer.store');
 
         Route::get('all','CrudController@getAllOffers');
+
+        Route::get('edit/{offer_id}', 'CrudController@editOffer')->name('offer.edit');
+
+        Route::post('update/{offer_id}', 'CrudController@updateOffer')->name('offer.update');
     });
 });

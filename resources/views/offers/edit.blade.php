@@ -97,7 +97,7 @@
     <div class="flex-center position-ref full-height">
         <div class="content">
             <div class="title m-b-md">
-                {{__('messages.offer add title')}}
+                {{__('messages.offer edit title')}} / {{ $offer->name }}
             </div>
 
             @if(Session::has('success'))
@@ -107,42 +107,45 @@
                 </div>
             </div>
             @endif
+
+            @if(Session::has('error'))
+            <div class="alert alert-danger">
+                <div>
+                    {{Session::get('error')}}
+                </div>
+            </div>
+            @endif
+
             <br>
-            <form method="POST" action="{{ route('offer.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('offer.update',['offer_id' => $offer->id]) }}">
                 @csrf
 
-                <div class="form-group">
-                    <label for="photo">إختر صورة</label>
-                    <input type="file" name="photo" class="form-control">
-                    @error('photo')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
+                
 
                 <div class="form-group">
                     <label for="name_en">{{ __('messages.offer Name input en') }}</label>
-                    <input type="text" name="name_en" class="form-control" aria-describedby="emailHelp">
+                    <input type="text" name="name_en" class="form-control" value="{{ $offer->name_en }}">
                     @error('name_en')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="name_ar">{{ __('messages.offer Name input ar') }}</label>
-                    <input type="text" name="name_ar" class="form-control" aria-describedby="emailHelp">
+                    <input type="text" name="name_ar" class="form-control" value="{{ $offer->name_ar }}">
                     @error('name_ar')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Offer Price</label>
-                    <input type="text" name="price" class="form-control">
+                    <input type="text" name="price" class="form-control" value="{{ $offer->price }}">
                     @error('price')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="details_en">{{ __('messages.offer details input en') }}</label>
-                    <input type="text" name="details_en" class="form-control">
+                    <input type="text" name="details_en" class="form-control" value="{{ $offer->details_en }}">
                     @error('details_en')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
@@ -150,7 +153,7 @@
 
                 <div class="form-group">
                     <label for="details_ar">{{ __('messages.offer details input ar') }}</label>
-                    <input type="text" name="details_ar" class="form-control">
+                    <input type="text" name="details_ar" class="form-control" value="{{ $offer->details_ar }}">
                     @error('details_ar')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
