@@ -14,6 +14,7 @@ return [
     'offer details input ar' => 'تفاصيل العرض بالعربي',
     'offer details input en' => 'تفاصيل العرض بالإنجليزي',
     'editBtn' => 'تعديل',
-    'Operations' => 'العمليات'
+    'Operations' => 'العمليات',
+    'deleteBtn' => 'حذف',
 
 ];

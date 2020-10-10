@@ -94,60 +94,78 @@
         </div>
     </nav>
 
-    @if(Session::has('success'))
-    <div class="alert alert-success">
-        <div>
-            {{Session::get('success')}}
+    <div class="flex-center position-ref full-height">
+        <div class="content">
+            <div class="title m-b-md">
+                {{__('messages.offer edit title')}} / {{ $offer->name }}
+            </div>
+
+            @if(Session::has('success'))
+            <div class="alert alert-success">
+                <div>
+                    {{Session::get('success')}}
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('error'))
+            <div class="alert alert-danger">
+                <div>
+                    {{Session::get('error')}}
+                </div>
+            </div>
+            @endif
+
+            <br>
+            <form method="POST" action="{{ route('offer.update',['offer_id' => $offer->id]) }}">
+                @csrf
+
+                
+
+                <div class="form-group">
+                    <label for="name_en">{{ __('messages.offer Name input en') }}</label>
+                    <input type="text" name="name_en" class="form-control" value="{{ $offer->name_en }}">
+                    @error('name_en')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="name_ar">{{ __('messages.offer Name input ar') }}</label>
+                    <input type="text" name="name_ar" class="form-control" value="{{ $offer->name_ar }}">
+                    @error('name_ar')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Offer Price</label>
+                    <input type="text" name="price" class="form-control" value="{{ $offer->price }}">
+                    @error('price')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="details_en">{{ __('messages.offer details input en') }}</label>
+                    <input type="text" name="details_en" class="form-control" value="{{ $offer->details_en }}">
+                    @error('details_en')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="details_ar">{{ __('messages.offer details input ar') }}</label>
+                    <input type="text" name="details_ar" class="form-control" value="{{ $offer->details_ar }}">
+                    @error('details_ar')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+
         </div>
     </div>
-    @endif
 
-    @if(Session::has('error'))
-    <div class="alert alert-danger">
-        <div>
-            {{Session::get('error')}}
-        </div>
-    </div>
-    @endif
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">{{__('messages.offerName')}}</th>
-                <th scope="col">{{ __('messages.offer price') }}</th>
-                <th scope="col">Offer Details</th>
-                <th scope="col">صورة العرض</th>
-                <th scope="col">{{ __('messages.Operations') }}</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach ($offers as $offer)
-            <tr>
-
-                <th scope="row">{{ $offer->id }}</th>
-                <td>{{ $offer->name }}</td>
-                <td>{{ $offer->price }}</td>
-                <td>{{ $offer->details }}</td>
-                <td><img src="{{url('images/offers/'. $offer->photo)}}" style="width: 125px;height: 100px;border-radius: 30px;"></td>
-                <td><a class="btn btn-primary" href="{{ route('offer.edit',['offer_id' => $offer->id]) }}">
-                        {{__('messages.editBtn')}}
-                    </a>
-                    <a class="btn btn-danger" href="{{ route('offer.delete',['offer_id' => $offer->id]) }}">
-                        {{__('messages.deleteBtn')}}
-                    </a>
-                </td>
-                    
-
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-
-
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -155,7 +173,7 @@
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
-    </script> --}}
+    </script>
 </body>
 
 </html>

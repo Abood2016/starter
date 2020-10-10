@@ -16,6 +16,7 @@ return [
     'offer details input ar' => 'Offer Details Arabic',
     'editBtn' => 'Edit',
     'Operations' => 'Operations',
+    'deleteBtn' => 'Delete',
 
     
 

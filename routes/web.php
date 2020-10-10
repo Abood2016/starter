@@ -50,22 +50,39 @@ Route::get('redirect/{service}', 'SocialController@redirect');
 
 Route::get('callback/{service}', 'SocialController@callback');
 
-Route::get('getoffer', 'CrudController@getOffers');
 
 
 Route::group(['prefix' => LaravelLocalization::setlocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
     Route::group(['prefix' => 'offers'], function () {
 
-        Route::get('create', 'CrudController@create');
+        Route::get('/create', 'CrudController@create');
 
-        Route::post('store', 'CrudController@store')->name('offer.store');
+        Route::post('/store', 'CrudController@store')->name('offer.store');
 
-        Route::get('all','CrudController@getAllOffers');
+        Route::get('/all','CrudController@getAllOffers')->name('offer.index');
+        
+        Route::get('/edit/{offer_id}', 'CrudController@editOffer')->name('offer.edit');
+        
+        Route::post('/update/{offer_id}', 'CrudController@updateOffer')->name('offer.update');
+      
+        Route::get('/delete/{offer_id}', 'CrudController@delete')->name('offer.delete');
 
-        Route::get('edit/{offer_id}', 'CrudController@editOffer')->name('offer.edit');
-
-        Route::post('update/{offer_id}', 'CrudController@updateOffer')->name('offer.update');
     });
 
     Route::get('youtupe','CrudController@getVideo')->middleware('auth');    
 });
+
+
+
+
+###################### Ajax Offer Routes ######################
+    Route::group(['prefix' => 'ajax-offer'], function () {
+
+        Route::get('/create', 'OfferController@create');
+        Route::post('/store', 'OfferController@store')->name('offer-ajax.store');
+
+
+
+});
+
+

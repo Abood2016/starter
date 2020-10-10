@@ -137,12 +137,27 @@ class CrudController extends Controller
     }
 
 
+
+    public function delete($offer_id)
+    {
+        $offer = Offer::find($offer_id); //Offer::where('id,'offer_id')->first();
+
+        if (!$offer) {
+            return redirect()->back()->with(['error' => 'العرض غير موجود']);
+        }
+
+        $offer->delete();
+
+        return redirect()->route('offer.index', $offer_id)->with(['success' => 'تم حذف العرض بنجاح']);
+    }
+
+
+
     public function getVideo()
     {
         //get first video
         $video = Video::first();
 
-        
         event(new VideoViewer($video)); // fireEvent
 
         return view('video')->with('video', $video);
