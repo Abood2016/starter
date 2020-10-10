@@ -3,12 +3,12 @@
 namespace App\Traits;
 
 
+//trait to save image in folder written by abed
  trait OfferTrait
  {
 
     protected function saveImages($photo, $folder)
     {
-        //save image in folder  written by abed
         $file_extension = $photo->getClientOriginalExtension();
         $file_name = time() . '.' . $file_extension;
         $path = $folder;

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\VideoViewer;
 use App\Http\Requests\OfferRequest;
 use App\Models\Offer;
+use App\Models\Video;
 use App\Traits\OfferTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
 
 class CrudController extends Controller
 {
@@ -133,5 +134,17 @@ class CrudController extends Controller
     {
 
         return view('offers.create');
+    }
+
+
+    public function getVideo()
+    {
+        //get first video
+        $video = Video::first();
+
+        
+        event(new VideoViewer($video)); // fireEvent
+
+        return view('video')->with('video', $video);
     }
 }
