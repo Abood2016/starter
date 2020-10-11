@@ -6,6 +6,7 @@ use App\Http\Requests\OfferRequest;
 use App\Models\Offer;
 use App\Traits\OfferTrait;
 use Illuminate\Http\Request;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class OfferController extends Controller
 {
@@ -33,14 +34,47 @@ class OfferController extends Controller
         ]);
 
         if ($offer)
-                return response()->json([
-                    'status' => true,
-                    'message' => 'تم إضافة العرض بنجاح',
-                ]);
-            else
-                return response()->json([
-                    'status' => false,
-                    'message' => 'فشل في عملية الحفظ ',
-                ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'تم إضافة العرض بنجاح',
+            ]);
+        else
+            return response()->json([
+                'status' => false,
+                'message' => 'فشل في عملية الحفظ ',
+            ]);
+    }
+
+
+    public function getOfferByAjax()
+    {
+        $offers = Offer::select(
+            'id',
+            'price',
+            'photo',
+            'name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+            'details_' . LaravelLocalization::getCurrentLocale() . ' as details'
+        )->get();
+
+        return view('Ajaxoffers.index')->with(['offers' => $offers]);
+    }
+
+
+    public function delete(Request $request)
+    {
+        // return $request;
+        $offer = Offer::find($request->id); //Offer::where('id,'offer_id')->first();
+
+        if (!$offer) {
+            return response()->json();
+        }
+
+        $offer->delete();
+
+        return response()->json([
+            'status' => true,
+            'msg' => 'تم الحذف بنجاح',
+            'id' =>  $request->id
+        ]);
     }
 }
