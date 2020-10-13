@@ -74,16 +74,19 @@ Route::group(['prefix' => LaravelLocalization::setlocale(), 'middleware' => ['lo
 
 
 
-###################### Ajax Offer Routes ######################
-    Route::group(['prefix' => 'ajax-offer'], function () {
+###################### Start Ajax Offer Routes ######################
+Route::group(['prefix' => 'ajax-offer'], function () {
 
-        Route::get('/create', 'OfferController@create');
+    Route::get('/create', 'OfferController@create');
 
-        Route::post('/store', 'OfferController@store')->name('offer-ajax.store');
-        
-        Route::get('/all', 'OfferController@getOfferByAjax')->name('offer-ajax.index');
+    Route::post('/store', 'OfferController@store')->name('offer-ajax.store');
 
-         Route::post('/delete', 'OfferController@delete')->name('offer-ajax.delete');
+    Route::get('/all', 'OfferController@getOfferByAjax')->name('offer-ajax.index');
 
+    Route::post('/delete', 'OfferController@delete')->name('offer-ajax.delete');
 
-    });
+    Route::get('/edit/{offer_id}', 'OfferController@edit')->name('offer-ajax.edit');
+
+    Route::post('/update', 'OfferController@update')->name('offer-ajax.update');
+});
+###################### End Ajax Offer Routes ########################

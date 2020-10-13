@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="alert alert-success text-center" id="success_msg" style="display: none;">
-تم حذف العرض بنجاح
+    تم حذف العرض بنجاح
 </div>
 
 @if(Session::has('success'))
@@ -52,6 +52,9 @@
                 </a>
                 <a class="btn btn-danger delete_btn" offer_id="{{ $offer->id }}">
                     حذف اجاكس
+                </a>
+                <a class="btn btn-primary edit_btn" href="{{ route('offer-ajax.edit',['offer_id' => $offer->id]) }}">
+                    تعديل أجاكس
                 </a>
             </td>
 

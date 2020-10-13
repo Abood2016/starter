@@ -33,7 +33,7 @@ class OfferController extends Controller
             'details_en' => $request->details_en,
         ]);
 
-        if ($offer)
+        if ($offer) // true
             return response()->json([
                 'status' => true,
                 'message' => 'تم إضافة العرض بنجاح',
@@ -57,6 +57,49 @@ class OfferController extends Controller
         )->get();
 
         return view('Ajaxoffers.index')->with(['offers' => $offers]);
+    }
+
+
+    public function edit(Request $request)
+    {
+        $offer = Offer::find($request->offer_id);
+
+        if (!$offer) {
+            return response()->json([
+                'status' => false,
+                'msg' => 'هذا العرض غير موجود',
+            ]);
+        }
+
+        $offer = Offer::select(
+            'id',
+            'name_en',
+            'name_ar',
+            'price',
+            'details_ar',
+            'details_en',
+        )->find($request->offer_id);
+
+        return  view('Ajaxoffers.edit')->with(['offer' => $offer]);
+    }
+
+
+    public function update(Request $request)
+    {
+        $offer = Offer::find($request->offer_id);
+
+        if (!$offer)
+            return response()->json([
+                'status' => false,
+                'msg' => 'هذا العرض غير موجود',
+            ]);
+
+        $offer->update($request->all());
+
+        return response()->json([
+            'status' => true,
+            'msg' => 'تم تحديث العرض بنجاح',
+        ]);
     }
 
 

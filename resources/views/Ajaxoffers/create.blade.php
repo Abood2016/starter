@@ -23,46 +23,34 @@
                 <div class="form-group">
                     <label for="photo">إختر صورة</label>
                     <input type="file" name="photo" class="form-control">
-                    @error('photo')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
+                    <small id="photo_error" class="form-text text-danger"></small>
                 </div>
 
                 <div class="form-group">
                     <label for="name_en">{{ __('messages.offer Name input en') }}</label>
                     <input type="text" name="name_en" class="form-control" aria-describedby="emailHelp">
-                    @error('name_en')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
+                    <small id="name_en_error" class="form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="name_ar">{{ __('messages.offer Name input ar') }}</label>
                     <input type="text" name="name_ar" class="form-control" aria-describedby="emailHelp">
-                    @error('name_ar')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
+                    <small id="name_ar_error" class="form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Offer Price</label>
                     <input type="text" name="price" class="form-control">
-                    @error('price')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
+                    <small id="price_error" class="form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="details_en">{{ __('messages.offer details input en') }}</label>
                     <input type="text" name="details_en" class="form-control">
-                    @error('details_en')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
+                    <small id="details_en_error" class="form-text text-danger"></small>
                 </div>
 
                 <div class="form-group">
                     <label for="details_ar">{{ __('messages.offer details input ar') }}</label>
                     <input type="text" name="details_ar" class="form-control">
-                    @error('details_ar')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
+                    <small id="details_ar_error" class="form-text text-danger"></small>
                 </div>
 
                 <button id="offer_save" class="btn btn-primary">Save</button>
@@ -78,6 +66,13 @@
 <script>
     $(document).on('click', '#offer_save' ,function(e) {
         e.preventDefault();
+
+            $('#photo_error').text('');
+            $('#name_ar_error').text('');
+            $('#name_en_error').text('');
+            $('#price_error').text('');
+            $('#details_en_error').text('');
+            $('#details_ar_error').text('');
 
         var formData = new FormData($('#offerForm')[0]);
 
@@ -99,12 +94,17 @@
                 success: function (data) {
                     if (data.status == true) {
                        $('#success_msg').show();
+                      $("#offerForm").trigger("reset"); //to clear the form
                     }
                 },
-                error: function (data) {
-                    
-                },
+                error: function (reject) {
+                    var response = $.parseJSON(reject.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#"  + key + "_error").text(val[0]); //# معناها اختار لي اسم الايررور
+                    });
+                }
             });
+              
     });
 </script>
 @endsection

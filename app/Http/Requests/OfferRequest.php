@@ -29,6 +29,7 @@ class OfferRequest extends FormRequest
             'price' => 'required|numeric',
             'details_en' => 'required',
             'details_ar' => 'required',
+            'photo' => 'required|mimes:png,jpg'
         ];
     }
 
@@ -40,6 +41,7 @@ class OfferRequest extends FormRequest
             'price.required' => __('messages.offer price required'),
             'name_ar.unique' => __('messages.offer name unique'),
             'name_en.unique' => __('messages.offer name unique'),
+            'photo.required' => 'صورة العرض مطلوبة',
             'price.numeric' => 'Price must be number.',
             'details_en.required' => 'التفاصيل مطلوبة',
             'details_ar.required' => 'التفاصيل مطلوبة',
